@@ -39,9 +39,15 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     }
     
     @objc func addNewPerson() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
+           let picker = UIImagePickerController()
+           picker.allowsEditing = true
+           picker.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            picker.sourceType = .camera
+        } else {
+            picker.sourceType = .photoLibrary 
+        }
+         
         present(picker, animated: true)
     }
     
@@ -60,6 +66,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         collectionView?.reloadData()
         
         dismiss(animated: true)
+      
     }
     
     func getDocumentsDirectory() -> URL {
